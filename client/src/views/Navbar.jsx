@@ -11,7 +11,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 
 const Navbar = () => {
   return (
-    <div className="flex m-auto w-full lg:justify-evenly bg-primary-1 py-6">
+    <div className="flex m-auto w-full lg:justify-between bg-primary-1 py-6 px-[60px]">
       <h1 className="text-3xl font-bold text-secondary-1 cursor-pointer ml-4 lg:ml-0">
         Les
         <span className="text-white">Read</span>
