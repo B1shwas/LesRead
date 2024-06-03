@@ -2,15 +2,16 @@
   "name": "lesread",
   "version": "1.0.0",
   "description": "This is for the website of the lesread",
-  "main": "index.js",
+  "main": "index.mjs",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node index.mjs",
+    "dev": "nodemon index.mjs"
   },
   "author": "Bishwas",
   "license": "ISC",
   "dependencies": {
+    "cloudinary": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

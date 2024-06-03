@@ -14,13 +14,15 @@ const BookSchema = Schema(
       type: Number,
       required: true,
     },
+    cutPrice: {
+      type: Number,
+    },
     stock: {
       type: Number,
       required: true,
     },
     image: {
       type: String,
-      required: true,
     },
     isAvailable: {
       type: Boolean,
@@ -29,6 +31,12 @@ const BookSchema = Schema(
     hype: {
       type: String,
       enum: ["Best Seller", "Trending", "New Release"],
+    },
+    rating:{
+      type: Number
+    },
+    discount: {
+      type: String
     },
     genre: {
       type: String,
@@ -52,6 +60,12 @@ const BookSchema = Schema(
         "Business/Finance",
         "Cookbooks",
       ],
+    },
+    description: {
+      type: String,
+    },
+    publishedAt: {
+      type: Date,
     },
   },
   { timestamps: true }
