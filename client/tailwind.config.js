@@ -45,6 +45,9 @@ module.exports = {
         button: {
           pink: "#EFBBE2",
         },
+        carousel: {
+          1: "#F5F5F5",
+        },
         input: {
           bg: "#201B67",
           text: "#4C42A6",
