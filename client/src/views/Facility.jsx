@@ -2,6 +2,7 @@ import React from "react";
 import { RiSecurePaymentFill, RiThunderstormsFill } from "react-icons/ri";
 import { FaThumbsUp } from "react-icons/fa6";
 import { FaStar } from "react-icons/fa";
+import axios from "axios";
 
 const Facility = () => {
   const facilities = [
@@ -28,7 +29,7 @@ const Facility = () => {
   ];
   let icon = FaStar;
   return (
-    <div className="p-[60px] flex gap-2 justify-center">
+    <div className="p-[60px] flex flex-col md:flex-row gap-2 justify-center">
       {facilities.map((facility, index) => (
         <div key={index} className="flex flex-col gap-2 p-4">
           <div className="bg-secondary-1 bg-opacity-10 inline-block p-3 rounded-md m-auto">

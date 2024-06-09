@@ -20,6 +20,7 @@ const buttonVariants = cva(
         cart: "bg-secondary-1 text-white rounded-sm hover:bg-secondary-1/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        login: "text-white rounder-sm bg-login hover:bg-login/80",
       },
       size: {
         default: "h-10 px-6 py-2",

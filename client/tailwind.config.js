@@ -9,6 +9,10 @@ module.exports = {
   ],
   prefix: "",
   theme: {
+    fontFamily: {
+      smooch: ["Smooch Sans", "sans-serif"],
+      poppins: ["Poppins", "sans-serif"],
+    },
     container: {
       center: true,
       padding: "2rem",
@@ -52,6 +56,7 @@ module.exports = {
           bg: "#201B67",
           text: "#4C42A6",
         },
+        login: "#1c1c1c",
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",

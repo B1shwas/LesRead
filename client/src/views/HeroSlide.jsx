@@ -2,7 +2,6 @@ import { Button } from "../components/ui/button";
 import Rating from "react-rating";
 import { GoStarFill } from "react-icons/go";
 
-
 const MainSlide = ({ book }) => {
   return (
     <div className="flex flex-col gap-[32px]">
@@ -47,7 +46,7 @@ const SecondarySlide = ({ book }) => {
         src={book.image}
         className="h-[100px] w-[100px] object-cover rounded-md"
       />
-      <div className="p-2">
+      <div className="p-2 w-[98%]">
         <h3 className="flex text-[16px] font-semibold text-nowrap">
           {book.title}
         </h3>

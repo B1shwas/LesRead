@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { RiArrowDropDownLine } from "react-icons/ri";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -38,8 +39,12 @@ const Navbar = () => {
         <Input className={cn("w-full ")} placeholder="Search books here" />
       </div>
       <div className="lg:flex gap-4 hidden">
-        <Button variant="primary">Log In</Button>
-        <Button variant="secondary">Sign Up</Button>
+        <Link to="/login">
+          <Button variant="primary">Log In</Button>
+        </Link>
+        <Link to="/register" >
+          <Button variant="secondary">Sign Up</Button>
+        </Link>
       </div>
     </div>
   );

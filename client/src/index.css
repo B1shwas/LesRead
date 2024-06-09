@@ -89,3 +89,14 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1;
 }
+
+.recomend .slick-list {
+  margin: auto;
+  width: 80%;
+}
+
+@media (max-width: 1124px) {
+  .recomend .slick-list {
+    width: 100%;
+  }
+}
