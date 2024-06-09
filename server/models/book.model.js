@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const BookSchema = Schema(
+const BookSchema = new Schema(
   {
     title: {
       type: String,
@@ -32,11 +32,11 @@ const BookSchema = Schema(
       type: String,
       enum: ["Best Seller", "Trending", "New Release"],
     },
-    rating:{
-      type: Number
+    rating: {
+      type: Number,
     },
     discount: {
-      type: String
+      type: String,
     },
     genre: {
       type: String,
@@ -71,6 +71,6 @@ const BookSchema = Schema(
   { timestamps: true }
 );
 
-const Book = new model("book", BookSchema);
+const Book = model("book", BookSchema);
 
 export default Book;

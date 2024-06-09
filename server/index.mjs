@@ -27,8 +27,10 @@ app.use(express.urlencoded({ extended: false }));
 
 //Routes import
 import bookRoutes from "./routes/book.routes.js";
+import userRoutes from "./routes/user.routes.js";
 
 app.use("/api/books", bookRoutes);
+app.use("/api/users", userRoutes);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Server is listening at PORT ${process.env.PORT || 3000}`);
