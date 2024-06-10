@@ -63,7 +63,18 @@ const Hero = () => {
             ?.filter((book) => book.hype === "New Release")
             .map((book, index) => (
               <div key={index}>
-                <MainSlide book={book} />
+                <MainSlide
+                  book={book}
+                  buyBtnVariant="secondary"
+                  detailsBtnVariant="outline"
+                  hypeStyle="text-text-2"
+                  titleStyle="text-white tracking-widest"
+                  spanStyle="text-white/80"
+                  descriptionStyle="text-white/40"
+                  priceStyle="text-white"
+                  cutPriceStyle="text-primary-2"
+                  buttonSpanStyle="text-white bg-span-pink"
+                />
               </div>
             ))}
         </Slider>

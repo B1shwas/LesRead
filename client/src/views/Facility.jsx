@@ -27,7 +27,6 @@ const Facility = () => {
       description: "We offer a 30-day return guarantee",
     },
   ];
-  let icon = FaStar;
   return (
     <div className="p-[60px] flex flex-col md:flex-row gap-2 justify-center">
       {facilities.map((facility, index) => (

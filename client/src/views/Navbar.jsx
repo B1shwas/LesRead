@@ -16,7 +16,6 @@ import { userLogOut } from "../utils/postApi";
 
 const Navbar = () => {
   const { isLoggedIn, user, logout } = useAuthStore();
-  console.log(user);
 
   const handleLogout = async () => {
     await userLogOut();

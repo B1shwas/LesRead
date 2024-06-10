@@ -56,6 +56,7 @@ module.exports = {
           bg: "#201B67",
           text: "#4C42A6",
         },
+        red: "#FF0000",
         login: "#1c1c1c",
         destructive: {
           DEFAULT: "hsl(var(--destructive))",

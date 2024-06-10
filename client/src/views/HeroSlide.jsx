@@ -2,37 +2,56 @@ import { Button } from "../components/ui/button";
 import Rating from "react-rating";
 import { GoStarFill } from "react-icons/go";
 
-const MainSlide = ({ book }) => {
+const MainSlide = ({
+  book,
+  hypeStyle = "",
+  spanStyle = "",
+  titleStyle = "",
+  descriptionStyle = "",
+  buyBtnVariant,
+  detailsBtnVariant,
+  priceStyle = "",
+  cutPriceStyle = "",
+  buttonSpanStyle = "",
+  divStyle = "",
+  lowerDivStyle = "",
+}) => {
   return (
-    <div className="flex flex-col gap-[32px]">
+    <div className={`flex flex-col gap-[32px] ${divStyle}`}>
       <div>
-        <p className="text-text-2 tracking-[12px] uppercase mb-3">
-          {book.hype}
+        <p className={` tracking-[12px] uppercase mb-3 ${hypeStyle} `}>
+          {book?.hype}
         </p>
-        <h1 className="text-white font-extrabold text-4xl tracking-widest mb-2">
-          {book.title}
+        <h1 className={` font-extrabold text-4xl mb-2 ${titleStyle}`}>
+          {book?.title}
         </h1>
-        <div className="text-white/80">
-          <span className="mr-4">{book.author}</span>
-          <span>{book.genre}</span>
+        <div className={` ${spanStyle}`}>
+          <span className="mr-4">{book?.author}</span>
+          <span>{book?.genre}</span>
         </div>
       </div>
-      <div className="px-6 border-l-2 border-button-pink text-white/40">
-        {book.description}
+      <div
+        className={`px-6 border-l-2 border-button-pink  ${descriptionStyle}`}
+      >
+        {book?.description}
       </div>
       <div>
-        <div className="flex gap-5 mb-4">
-          <h1 className="text-white text-2xl font-bold">${book.cutPrice}</h1>
-          <strike className="text-primary-2 text-sm font-bold self-end">
-            ${book.price}
+        <div className={`flex gap-5 mb-4 ${lowerDivStyle}`}>
+          <h1 className={` text-2xl font-bold ${priceStyle}`}>
+            ${book?.cutPrice}
+          </h1>
+          <strike className={` text-sm font-bold self-end ${cutPriceStyle}`}>
+            ${book?.price}
           </strike>
-          <p className="bg-span-pink px-2 py-0.5 rounded-sm text-[12px] font-medium text-white self-center">
-            {book.discount}
+          <p
+            className={` px-2 py-0.5 rounded-sm text-[12px] font-medium  self-center ${buttonSpanStyle}`}
+          >
+            {book?.discount}
           </p>
         </div>
-        <div className="flex gap-6">
-          <Button variant="secondary">Buy Now</Button>
-          <Button variant="outline">See Details</Button>
+        <div className={` flex gap-6 ${lowerDivStyle}`}>
+          <Button variant={buyBtnVariant}>Buy Now</Button>
+          <Button variant={detailsBtnVariant}>See Details</Button>
         </div>
       </div>
     </div>

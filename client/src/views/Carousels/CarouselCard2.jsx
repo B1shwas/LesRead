@@ -3,7 +3,7 @@ import book from "/images/atomicHabit.jpeg";
 
 const CarouselCard2 = ({ book }) => {
   return (
-    <div>
+    <div className="flex flex-col items-center md:block">
       <div className="flex flex-col gap-1">
         <img
           src={book.image}

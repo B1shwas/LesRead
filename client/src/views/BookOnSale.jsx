@@ -1,15 +1,19 @@
 import Slider from "react-slick";
 import CarouselCard2 from "./Carousels/CarouselCard2";
 import { useBookStore } from "../zustand-store/bookStore";
+import { CustomNextArrow2, CustomPrevArrow2 } from "./Custom/Arrows";
 
 const BookOnSale = () => {
   const { books } = useBookStore();
   var settings = {
     slidesToShow: 6,
     infinite: true,
-    dots: true,
     speed: 500,
     slidesToScroll: 6,
+    arrows: true,
+    prevArrow: <CustomPrevArrow2 />,
+    nextArrow: <CustomNextArrow2 />,
+
     responsive: [
       {
         breakpoint: 1200,
@@ -50,7 +54,7 @@ const BookOnSale = () => {
         Book On Sale
       </h1>
       <div className="mt-[32px]">
-        <Slider {...settings}>
+        <Slider {...settings} className="book-on-sale">
           {books.map((book, index) => (
             <div key={index}>
               <CarouselCard2 book={book} />

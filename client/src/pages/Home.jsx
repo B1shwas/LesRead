@@ -7,6 +7,7 @@ import RecommendedCarousel from "../views/RecommendedCarousel";
 import SponserCarousel from "../views/SponserCarousel";
 import useAuthStore from "../zustand-store/authStore";
 import { getHome } from "../utils/getApi";
+import FeaturedCarouselSection from "../views/FeaturedCarouselSection";
 
 const Home = () => {
   const { setLogin, isLoggedIn } = useAuthStore();
@@ -35,6 +36,7 @@ const Home = () => {
       <RecommendedCarousel />
       <Facility />
       <BookOnSale />
+      <FeaturedCarouselSection />
     </div>
   );
 };

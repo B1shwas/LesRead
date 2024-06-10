@@ -99,6 +99,10 @@ body {
   width: 80%;
 }
 
+.featuredProduct .slick-slide .slick-current {
+  width: 10%;
+}
+
 @media (max-width: 1124px) {
   .recomend .slick-list {
     width: 100%;
