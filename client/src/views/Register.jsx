@@ -45,8 +45,8 @@ const Register = () => {
     validateOnBlur: true,
     onSubmit: async (values) => {
       const { confirmPassword, ...rest } = values;
-      await userRegistration(rest).then((res) => console.log(res.data.data));
-      
+      await userRegistration(rest);
+
       formik.resetForm();
     },
   });

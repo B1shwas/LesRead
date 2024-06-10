@@ -1,4 +1,4 @@
-import { Button } from "../components/ui/button";
+import { Button } from "../../components/ui/button";
 const CarouselCard1 = ({ book, currentSlide, index, bookLength }) => {
   let imageClassName = "h-[200px] w-[150px] object-fit rounded-sm";
   let divClassName = "flex justify-center";

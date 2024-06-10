@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login, refreshToken } = useAuthStore();
+  const { login } = useAuthStore();
 
   const emailValidation = Yup.object({
     email: Yup.string().email("Invalid email").required("Email is required"),
@@ -54,9 +54,7 @@ const Login = () => {
         ? { email: values.userOrEmail, password: values.password }
         : { userName: values.userOrEmail, password: values.password };
       try {
-        await login(payload);
-
-        if (refreshToken) navigate("/");
+        await login(payload, navigate);
       } catch (error) {
         console.log(error);
       }

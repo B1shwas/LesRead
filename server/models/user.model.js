@@ -25,7 +25,7 @@ const userSchema = new Schema(
     profileImage: {
       type: String,
       default:
-        "https://www.kindpng.com/picc/m/150-1503922_user-png-grey-transparent-png.png",
+        "https://winkeyecare.com/wp-content/uploads/2013/03/Empty-Profile-Picture-450x450.jpg",
     },
     password: {
       type: String,
@@ -75,7 +75,7 @@ userSchema.methods.generateRefreshToken = function () {
     {
       _id: this._id,
     },
-    process.env.REFRESH_TOKEN,
+    process.env.SECRET_KEY,
     { expiresIn: process.env.REFRESH_TOKEN_EXPIRY }
   );
 };
@@ -88,7 +88,7 @@ userSchema.methods.generateAccessToken = function () {
       email: this.email,
       role: this.role,
     },
-    process.env.ACCESS_TOKEN,
+    process.env.SECRET_KEY,
     { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
   );
 };

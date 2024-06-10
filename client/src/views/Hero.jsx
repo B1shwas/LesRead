@@ -59,11 +59,13 @@ const Hero = () => {
           asNavFor={slider2}
           ref={(slider) => (sliderRef1 = slider)}
         >
-          {books?.map((book, index) => (
-            <div key={index}>
-              <MainSlide book={book} />
-            </div>
-          ))}
+          {books
+            ?.filter((book) => book.hype === "New Release")
+            .map((book, index) => (
+              <div key={index}>
+                <MainSlide book={book} />
+              </div>
+            ))}
         </Slider>
         <Slider
           {...settings2}
@@ -71,11 +73,13 @@ const Hero = () => {
           asNavFor={slider1}
           ref={(slider) => (sliderRef2 = slider)}
         >
-          {books?.map((book, index) => (
-            <div key={index}>
-              <SecondarySlide book={book} />
-            </div>
-          ))}
+          {books
+            ?.filter((book) => book.hype === "New Release")
+            .map((book, index) => (
+              <div key={index}>
+                <SecondarySlide book={book} />
+              </div>
+            ))}
         </Slider>
         <div className="block mt-[20px]  md:absolute bottom-[5%] md:bottom-[10%]">
           <p className="text-xs text-slate-500/80">Our partner</p>

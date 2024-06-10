@@ -8,3 +8,11 @@ export const userRegistration = (values) => {
 export const userLogin = (values) => {
   return axios.post(`${domain}/api/users/login`, values);
 };
+
+export const userLogOut = () => {
+  return axios.post(
+    `${domain}/api/users/logout`,
+    {},
+    { withCredentials: true }
+  );
+};
