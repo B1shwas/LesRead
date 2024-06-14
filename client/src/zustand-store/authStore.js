@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { userLogin } from "../utils/postApi";
 import { getCookie, setCookie, deleteCookie } from "../utils/cookie";
+import { toast } from "../components/ui/use-toast";
 
 const useAuthStore = create((set) => ({
   user: JSON.parse(localStorage.getItem("user")) || null,
@@ -11,7 +12,7 @@ const useAuthStore = create((set) => ({
 
   setLogin: (value) => set({ isLoggedIn: value }),
 
-  login: async (userDetails, navigate) => {
+  login: async (userDetails, navigate, location) => {
     try {
       const response = await userLogin(userDetails);
       if (response.data) {
@@ -24,9 +25,20 @@ const useAuthStore = create((set) => ({
         localStorage.setItem("isLoggedIn", true);
         localStorage.setItem("user", JSON.stringify(response.data.data.user));
       }
+      if (response.status === 200 && location.pathname === "/login") {
+        toast({
+          description: "User Logged In Successfully",
+        });
+      }
+
       navigate("/");
     } catch (error) {
-      console.log(error);
+      const html = error?.response?.data;
+      const errorMessage = html.match(/Error: (.*?)<br>/)[1].trim();
+      toast({
+        description: errorMessage,
+      });
+      console.log(errorMessage);
     }
   },
 

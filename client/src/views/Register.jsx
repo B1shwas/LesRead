@@ -6,8 +6,17 @@ import { cn } from "../lib/utils";
 import { Button } from "../components/ui/button";
 import * as Yup from "yup";
 import { userRegistration } from "../utils/postApi";
+import { toast } from "../components/ui/use-toast";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
+import useAuthStore from "../zustand-store/authStore";
 
 const Register = () => {
+  const { login } = useAuthStore();
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
   const validationSchema = Yup.object({
     fullName: Yup.string()
       .required("Full Name is required")
@@ -46,6 +55,14 @@ const Register = () => {
     onSubmit: async (values) => {
       const { confirmPassword, ...rest } = values;
       await userRegistration(rest);
+      const loginData = {
+        email: values.email,
+        password: values.password,
+      };
+      login(loginData, navigate, location);
+      toast({
+        description: "User Registered Successfully",
+      });
 
       formik.resetForm();
     },
@@ -120,53 +137,80 @@ const Register = () => {
                   {formik.errors.email}
                 </div>
               )}
-            <Input
-              placeholder="Password"
-              className={cn(
-                "w-full bg-[#f2f2f2] text-black placeholder:text-black px-[3rem]"
+            <div className="relative">
+              <Input
+                placeholder="Password"
+                className={cn(
+                  "w-full bg-[#f2f2f2] text-black placeholder:text-black px-[3rem]"
+                )}
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.password && formik.errors.password}
+              />
+              {showPassword ? (
+                <FaEyeSlash
+                  className="absolute top-[13px] right-2 cursor:pointer"
+                  onClick={() => setShowPassword(false)}
+                />
+              ) : (
+                <FaEye
+                  className="absolute top-[13px] right-2 cursor:pointer"
+                  onClick={() => setShowPassword(true)}
+                />
               )}
-              id="password"
-              name="password"
-              type="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.password && formik.errors.password}
-            />
-            {!formik.errors.fullName &&
-              !formik.errors.userName &&
-              !formik.errors.email &&
-              formik.touched.password &&
-              formik.errors.password && (
-                <div className="text-red-500  w-full text-xs ml-2">
-                  {formik.errors.password}
-                </div>
+              {!formik.errors.fullName &&
+                !formik.errors.userName &&
+                !formik.errors.email &&
+                formik.touched.password &&
+                formik.errors.password && (
+                  <div className="text-red-500  w-full text-xs ml-2">
+                    {formik.errors.password}
+                  </div>
+                )}
+            </div>
+            <div className="relative">
+              <Input
+                placeholder="Confirm Password"
+                className={cn(
+                  "w-full bg-[#f2f2f2] text-black placeholder:text-black px-[3rem]"
+                )}
+                id="confirmPassword"
+                name="confirmPassword"
+                type={showPassword ? "text" : "password"}
+                value={formik.values.confirmPassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.confirmPassword &&
+                  formik.errors.confirmPassword
+                }
+              />
+              {showPassword ? (
+                <FaEyeSlash
+                  className="absolute top-[13px] right-2 cursor:pointer"
+                  onClick={() => setShowPassword(false)}
+                />
+              ) : (
+                <FaEye
+                  className="absolute top-[13px] right-2 cursor:pointer"
+                  onClick={() => setShowPassword(true)}
+                />
               )}
-            <Input
-              placeholder="Confirm Password"
-              className={cn(
-                "w-full bg-[#f2f2f2] text-black placeholder:text-black px-[3rem]"
-              )}
-              id="confirmPassword"
-              name="confirmPassword"
-              type="password"
-              value={formik.values.confirmPassword}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={
-                formik.touched.confirmPassword && formik.errors.confirmPassword
-              }
-            />
-            {!formik.errors.fullName &&
-              !formik.errors.userName &&
-              !formik.errors.email &&
-              !formik.errors.password &&
-              formik.errors.confirmPassword &&
-              formik.touched.confirmPassword && (
-                <div className="text-red-500  w-full text-xs ml-2">
-                  {formik.errors.confirmPassword}
-                </div>
-              )}
+              {!formik.errors.fullName &&
+                !formik.errors.userName &&
+                !formik.errors.email &&
+                !formik.errors.password &&
+                formik.errors.confirmPassword &&
+                formik.touched.confirmPassword && (
+                  <div className="text-red-500  w-full text-xs ml-2">
+                    {formik.errors.confirmPassword}
+                  </div>
+                )}
+            </div>
             <Button variant="login" type="submit">
               Next
             </Button>

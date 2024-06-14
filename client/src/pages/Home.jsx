@@ -30,7 +30,6 @@ const Home = () => {
   }, []);
   return (
     <div className="w-screen overflow-hidden">
-      <Navbar />
       <Hero />
       <SponserCarousel />
       <RecommendedCarousel />

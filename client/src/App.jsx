@@ -3,6 +3,8 @@ import Home from "./pages/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import useAuthStore from "./zustand-store/authStore";
+import ProfilePage from "./pages/ProfilePage";
+import RootLayout from "./layout/RootLayout";
 
 const App = () => {
   const { isLoggedIn } = useAuthStore();
@@ -10,15 +12,57 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            <RootLayout>
+              <Home />
+            </RootLayout>
+          }
+        />
 
         <Route
           path="/login"
-          element={isLoggedIn ? <Navigate to="/" replace /> : <Login />}
+          element={
+            isLoggedIn ? (
+              <RootLayout>
+                <Navigate to="/" replace />
+              </RootLayout>
+            ) : (
+              <RootLayout>
+                <Login />
+              </RootLayout>
+            )
+          }
         />
         <Route
           path="/register"
-          element={isLoggedIn ? <Navigate to="/" replace /> : <Register />}
+          element={
+            isLoggedIn ? (
+              <RootLayout>
+                <Navigate to="/" replace />
+              </RootLayout>
+            ) : (
+              <RootLayout>
+                <Register />
+              </RootLayout>
+            )
+          }
+        />
+
+        <Route
+          path="/profile/:username"
+          element={
+            isLoggedIn ? (
+              <RootLayout>
+                <ProfilePage />
+              </RootLayout>
+            ) : (
+              <RootLayout>
+                <Navigate to="/login" replace />
+              </RootLayout>
+            )
+          }
         />
       </Routes>
     </>

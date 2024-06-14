@@ -13,6 +13,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import useAuthStore from "../zustand-store/authStore";
 import { userLogOut } from "../utils/postApi";
+import { toast } from "../components/ui/use-toast";
 
 const Navbar = () => {
   const { isLoggedIn, user, logout } = useAuthStore();
@@ -20,12 +21,17 @@ const Navbar = () => {
   const handleLogout = async () => {
     await userLogOut();
     logout();
+    toast({
+      description: "You have been logged out successfully",
+    });
   };
   return (
     <div className="flex m-auto w-full lg:justify-between bg-primary-1 py-6 px-[60px]">
       <h1 className="text-3xl font-bold text-secondary-1 cursor-pointer ml-4 lg:ml-0">
-        Les
-        <span className="text-white">Read</span>
+        <Link to="/">
+          Les
+          <span className="text-white">Read</span>
+        </Link>
       </h1>
       <div className="w-[40%] hidden lg:flex">
         <DropdownMenu>
@@ -78,7 +84,10 @@ const Navbar = () => {
             <DropdownMenuContent className={cn("bg-input-bg text-text-2")}>
               <DropdownMenuItem>
                 {" "}
-                <Button className={cn("p-0")}>View Profile</Button>
+                <Button className={cn("p-0")}>
+                  {" "}
+                  <Link to={`/profile/${user.userName}`}>View Profile</Link>
+                </Button>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <Button className={cn("p-0")} onClick={handleLogout}>

@@ -6,11 +6,17 @@ import * as Yup from "yup";
 import LoginSignup from "./LoginSignup";
 import coverImage from "/images/loginImage.jpeg";
 import useAuthStore from "../zustand-store/authStore";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash } from "react-icons/fa";
+import { toast } from "../components/ui/use-toast";
+import { useState } from "react";
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { login } = useAuthStore();
+  const [showPassword, setShowPassword] = useState(false);
 
   const emailValidation = Yup.object({
     email: Yup.string().email("Invalid email").required("Email is required"),
@@ -54,8 +60,13 @@ const Login = () => {
         ? { email: values.userOrEmail, password: values.password }
         : { userName: values.userOrEmail, password: values.password };
       try {
-        await login(payload, navigate);
+        await login(payload, navigate, location);
       } catch (error) {
+        if (error?.response?.status === 401) {
+          toast({
+            description: "Invalid Credentials",
+          });
+        }
         console.log(error);
       }
       formik.resetForm();
@@ -97,26 +108,40 @@ const Login = () => {
                 {formik.errors.userOrEmail}
               </div>
             )}
-            <Input
-              placeholder="Password"
-              className={cn(
-                "w-full bg-[#f2f2f2] text-black placeholder:text-black px-[3rem]"
+            <div className="relative">
+              <Input
+                placeholder="Password"
+                className={cn(
+                  "w-full bg-[#f2f2f2] text-black placeholder:text-black px-[3rem]"
+                )}
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={formik.touched.password && formik.errors.password}
+              />
+              {showPassword ? (
+                <FaEyeSlash
+                  className="absolute top-[13px] right-2 cursor:pointer"
+                  onClick={() => setShowPassword(false)}
+                />
+              ) : (
+                <FaEye
+                  className="absolute top-[13px] right-2 cursor:pointer"
+                  onClick={() => setShowPassword(true)}
+                />
               )}
-              id="password"
-              name="password"
-              type="password"
-              value={formik.values.password}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={formik.touched.password && formik.errors.password}
-            />
-            {!formik.errors.userOrEmail &&
-              formik.touched.password &&
-              formik.errors.password && (
-                <div className="text-red-500  w-full text-xs ml-2">
-                  {formik.errors.password}
-                </div>
-              )}
+              {!formik.errors.userOrEmail &&
+                formik.touched.password &&
+                formik.errors.password && (
+                  <div className="text-red-500  w-full text-xs ml-2">
+                    {formik.errors.password}
+                  </div>
+                )}
+            </div>
+
             <Button variant="login" type="submit">
               Next
             </Button>
