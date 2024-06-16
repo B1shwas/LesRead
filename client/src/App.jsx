@@ -53,15 +53,9 @@ const App = () => {
         <Route
           path="/profile/:username"
           element={
-            isLoggedIn ? (
-              <RootLayout>
-                <ProfilePage />
-              </RootLayout>
-            ) : (
-              <RootLayout>
-                <Navigate to="/login" replace />
-              </RootLayout>
-            )
+            <RootLayout>
+              <ProfilePage />
+            </RootLayout>
           }
         />
       </Routes>

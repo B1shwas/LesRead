@@ -8,3 +8,9 @@ export const getAllBooks = () => {
 export const getHome = () => {
   return axios.get(`${domain}/home`, { withCredentials: true });
 };
+
+export const getUser = () => {
+  return axios.get(`${domain}/api/users/details`, {
+    withCredentials: true,
+  });
+};

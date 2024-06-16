@@ -3,6 +3,17 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { AsyncHandler } from "../utils/AsyncHandler.js";
 
+const getCurrentUser = AsyncHandler(async (req, res) => {
+  if (!req.user) throw new ApiError(400, "User not found");
+
+  const currentUser = await User.findById(req.user._id).select(
+    "-password -refreshToken"
+  );
+  if (!currentUser) throw new ApiError(500, "Something went wrong");
+
+  return res.status(200).json(new ApiResponse(200, currentUser, "Success"));
+});
+
 const registerUser = AsyncHandler(async (req, res) => {
   const { fullName, email, password, userName } = req.body;
 
@@ -161,4 +172,10 @@ const logoutUser = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "User logged Out"));
 });
 
-export { registerUser, loginUser, refreshAccessToken, logoutUser };
+export {
+  registerUser,
+  loginUser,
+  refreshAccessToken,
+  logoutUser,
+  getCurrentUser,
+};

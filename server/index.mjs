@@ -40,7 +40,7 @@ import { verifyJWT } from "./middlewares/auth.middlewares.js";
 app.use("/api/books", bookRoutes);
 app.use("/api/users", userRoutes);
 
-app.get("/home", verifyJWT, (req, res) => {
+app.get("/home", verifyJWT, (_, res) => {
   res.json({ message: "Successfully Logged in" });
 });
 
