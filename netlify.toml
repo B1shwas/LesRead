@@ -1,0 +1,7 @@
+[build]
+  command = "npm run build" # This is for the client (React)
+  publish = "client/build" # This is for the client (React)
+
+[build.server]
+  command = "npm install && npm run start" # This is for the server (Express.js)
+  publish = "server" # This is for the server (Express.js)
