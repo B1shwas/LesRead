@@ -65,14 +65,16 @@ const Navbar = () => {
               <div className="flex gap-1">
                 <div className="flex gap-2">
                   <img
-                    src={user.profileImage}
+                    src={user?.profileImage}
                     className="h-[40px] w-[40px] rounded-md"
                   />
                   <div>
                     <h5 className="text-[14px] text-white font-bold">
-                      {user.fullName}
+                      {user?.fullName}
                     </h5>
-                    <p className="text-[10px] text-secondary-1">{user.email}</p>
+                    <p className="text-[10px] text-secondary-1">
+                      {user?.email}
+                    </p>
                   </div>
                 </div>
                 <RiArrowDropDownLine
@@ -86,7 +88,7 @@ const Navbar = () => {
                 {" "}
                 <Button className={cn("p-0")}>
                   {" "}
-                  <Link to={`/profile/${user.userName}`}>View Profile</Link>
+                  <Link to={`/profile/${user?.userName}`}>View Profile</Link>
                 </Button>
               </DropdownMenuItem>
               <DropdownMenuItem>

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { getUser } from "../utils/getApi";
-import { Button } from "../components/ui/button";
-import { FaEdit } from "react-icons/fa";
+import ProfilePageTab from "../views/ProfilePageTab";
+import UserProfileChangeSettingModal from "../views/UserProfileChangeSettingModal";
 
 const ProfilePage = () => {
   const [userDetails, setUserDetails] = useState(null);
+  console.log(userDetails);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -16,10 +17,10 @@ const ProfilePage = () => {
   }, []);
 
   return (
-    <div className="bg-[#292376] p-3 min-h-[calc(100vh-88px)]">
+    <div className="bg-[#292376] p-3  h-fit min-h-[calc(100vh-88px)]">
       {userDetails ? (
-        <div className="flex w-full min-h-full bg-[url('/images/loginImage.jpeg')] rounded-md bg-no-repeat bg-cover overflow-hidden">
-          <div className="w-[70%] mt-[120px] bg-[#19154f] text-white px-10">
+        <div className="flex w-full h-fit min-h-[calc(100vh-80px)] bg-[url('/images/loginImage.jpeg')] rounded-md bg-no-repeat bg-cover overflow-hidden">
+          <div className="w-[60%] mt-[120px] bg-[#19154f] text-white px-10">
             <div className="flex gap-4">
               <img
                 src={userDetails.profileImage}
@@ -36,14 +37,14 @@ const ProfilePage = () => {
                   </h1>
                   <p className="text-text-2 text-sm ">{userDetails.email}</p>
                 </div>
-                <Button variant="outline">
-                  <FaEdit className="mr-1" />
-                  Edit
-                </Button>
+                <UserProfileChangeSettingModal />
               </div>
             </div>
+            <div className="mt-8 py-5">
+              <ProfilePageTab userDetails={userDetails} />
+            </div>
           </div>
-          <div className="w-[30%] mt-[120px] bg-[#19154f]"></div>
+          <div className="w-[40%] mt-[120px] bg-[#19154f] "></div>
         </div>
       ) : (
         <h1>No User Found!</h1>

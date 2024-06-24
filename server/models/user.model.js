@@ -36,25 +36,12 @@ const userSchema = new Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    purchasedBook: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Book",
-      },
-    ],
-    cart: [
-      {
-        book: [
-          {
-            type: Schema.Types.ObjectId,
-            ref: "Book",
-          },
-        ],
-        quantity: { type: Number, default: 0 },
-      },
-    ],
     refreshToken: {
       type: String,
+    },
+    details: {
+      type: Schema.Types.ObjectId,
+      ref: "UserDetails",
     },
   },
   { timestamps: true }

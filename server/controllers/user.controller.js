@@ -1,3 +1,4 @@
+import UserDetails from "../models/user-details.model.js";
 import User from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -6,9 +7,9 @@ import { AsyncHandler } from "../utils/AsyncHandler.js";
 const getCurrentUser = AsyncHandler(async (req, res) => {
   if (!req.user) throw new ApiError(400, "User not found");
 
-  const currentUser = await User.findById(req.user._id).select(
-    "-password -refreshToken"
-  );
+  const currentUser = await User.findById(req.user._id)
+    .select("-password -refreshToken")
+    .populate("details");
   if (!currentUser) throw new ApiError(500, "Something went wrong");
 
   return res.status(200).json(new ApiResponse(200, currentUser, "Success"));
@@ -172,10 +173,83 @@ const logoutUser = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "User logged Out"));
 });
 
+const editUserDetails = AsyncHandler(async (req, res) => {
+  const { gender, bio, dob, address, fullName, email } = req.body;
+  const userId = req.user._id;
+  console.log(userId);
+
+  const existingUser = await User.findById(userId).populate("details");
+
+  if (!existingUser) throw new ApiError(404, "User not found");
+
+  if (existingUser.details) {
+    const updatedUserDetails = await UserDetails.findByIdAndUpdate(
+      existingUser.details._id,
+      {
+        gender: gender || existingUser.details.gender,
+        bio: bio || existingUser.details.bio,
+        dob: dob || existingUser.details.dob,
+        address: address || existingUser.details.address,
+      },
+      { new: true }
+    );
+    existingUser.details = updatedUserDetails;
+    existingUser.fullName = fullName || existingUser.fullName;
+    existingUser.email = email || existingUser.email;
+
+    await existingUser.save({ validateModifiedOnly: true });
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, existingUser, "Userdetails updated"));
+  } else {
+    const newUserDetails = await UserDetails.create({
+      gender: gender || null,
+      bio: bio || null,
+      dob: dob || null,
+      address: address || null,
+    });
+    existingUser.details = newUserDetails;
+    existingUser.fullName = fullName || existingUser.fullName;
+    existingUser.email = email || existingUser.email;
+
+    await existingUser.save({ validateModifiedOnly: true });
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, existingUser, "Userdetails updated"));
+  }
+});
+
+const changePassword = AsyncHandler(async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+
+  const user = await User.findById(req?.user._id);
+
+  if (!user) throw new ApiError(404, "User not found");
+
+  const isPasswordValid = await user.isPasswordCorrect(oldPassword);
+
+  if (!isPasswordValid) throw new ApiError(400, "Invalid old password");
+
+  user.password = newPassword;
+  await user.save({ validateBeforeSave: false });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Password changed successfully"));
+});
+
+const updateProfileImage = AsyncHandler(async(req,res) => {
+
+})
+
 export {
   registerUser,
   loginUser,
   refreshAccessToken,
   logoutUser,
   getCurrentUser,
+  editUserDetails,
+  changePassword,
 };
