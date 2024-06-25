@@ -53,16 +53,25 @@ const Register = () => {
     validationSchema: validationSchema,
     validateOnBlur: true,
     onSubmit: async (values) => {
-      const { confirmPassword, ...rest } = values;
-      await userRegistration(rest);
-      const loginData = {
-        email: values.email,
-        password: values.password,
-      };
-      login(loginData, navigate, location);
-      toast({
-        description: "User Registered Successfully",
-      });
+      try {
+        const { confirmPassword, ...rest } = values;
+        await userRegistration(rest);
+        const loginData = {
+          email: values.email,
+          password: values.password,
+        };
+        login(loginData, navigate, location);
+        toast({
+          description: "User Registered Successfully",
+        });
+      } catch (error) {
+        const html = error?.response?.data;
+        const errorMessage = html.match(/Error: (.*?)<br>/)[1].trim();
+        toast({
+          description: errorMessage,
+        });
+        console.log(errorMessage);
+      }
 
       formik.resetForm();
     },
