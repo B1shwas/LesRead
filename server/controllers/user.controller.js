@@ -132,6 +132,8 @@ const refreshAccessToken = AsyncHandler(async (req, res) => {
     const options = {
       httpOnly: true,
       secure: true,
+      sameSite: "None",
+      path: "/",
     };
 
     const { accessToken, newRefreshToken } =
