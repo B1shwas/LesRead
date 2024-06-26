@@ -17,6 +17,12 @@ const storage = (modelName) =>
     },
   });
 
-const upload = (modelName) => multer({ storage: storage(modelName) });
+const upload = (modelName) =>
+  multer({
+    storage: storage(modelName),
+    fileFilter: (req, file, cb) => {
+      cb(null, true);
+    },
+  });
 
 export { upload };

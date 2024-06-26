@@ -7,7 +7,7 @@ import ProfilePage from "./pages/ProfilePage";
 import RootLayout from "./layout/RootLayout";
 
 const App = () => {
-  const { isLoggedIn } = useAuthStore();
+  const { user } = useAuthStore();
 
   return (
     <>
@@ -24,7 +24,7 @@ const App = () => {
         <Route
           path="/login"
           element={
-            isLoggedIn ? (
+            user ? (
               <RootLayout>
                 <Navigate to="/" replace />
               </RootLayout>
@@ -38,7 +38,7 @@ const App = () => {
         <Route
           path="/register"
           element={
-            isLoggedIn ? (
+            user ? (
               <RootLayout>
                 <Navigate to="/" replace />
               </RootLayout>
@@ -53,7 +53,7 @@ const App = () => {
         <Route
           path="/profile/:username"
           element={
-            isLoggedIn ? (
+            user ? (
               <RootLayout>
                 <ProfilePage />
               </RootLayout>

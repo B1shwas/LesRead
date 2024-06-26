@@ -3,6 +3,10 @@ import User from "../models/user.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { AsyncHandler } from "../utils/AsyncHandler.js";
+import {
+  deleteFromCloudinary,
+  uploadOnCloudinary,
+} from "../utils/Cloudinary.js";
 
 const getCurrentUser = AsyncHandler(async (req, res) => {
   if (!req.user) throw new ApiError(400, "User not found");
@@ -240,9 +244,34 @@ const changePassword = AsyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Password changed successfully"));
 });
 
-const updateProfileImage = AsyncHandler(async(req,res) => {
+const updateProfileImage = AsyncHandler(async (req, res) => {
+  const imagePath = req.file && req.file.path;
+  const userId = req.user._id;
 
-})
+  if (!userId) throw new ApiError(404, "User not found");
+
+  if (!imagePath) throw new ApiError(400, "Image file is required");
+
+  const user = await User.findById(userId);
+
+  if (
+    user.profileImage &&
+    user.profileImage !==
+      "https://winkeyecare.com/wp-content/uploads/2013/03/Empty-Profile-Picture-450x450.jpg"
+  ) {
+    const imageId = user.profileImage.split("/").pop().split(".")[0];
+
+    await deleteFromCloudinary(imageId, "LesRead/users");
+  }
+
+  const image = await uploadOnCloudinary(imagePath, "LesRead/users");
+
+  user.profileImage = image.secure_url;
+  user.save();
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Profile Image Changed Successfully"));
+});
 
 export {
   registerUser,
@@ -252,4 +281,5 @@ export {
   getCurrentUser,
   editUserDetails,
   changePassword,
+  updateProfileImage,
 };

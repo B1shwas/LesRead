@@ -16,7 +16,7 @@ import { userLogOut } from "../utils/postApi";
 import { toast } from "../components/ui/use-toast";
 
 const Navbar = () => {
-  const { isLoggedIn, user, logout } = useAuthStore();
+  const { user, logout } = useAuthStore();
 
   const handleLogout = async () => {
     await userLogOut();
@@ -54,7 +54,7 @@ const Navbar = () => {
 
         <Input className={cn("w-full ")} placeholder="Search books here" />
       </div>
-      {isLoggedIn ? (
+      {user ? (
         <div className="lg:flex gap-3 hidden items-center">
           <CiHeart className="text-white text-2xl font-semibold cursor-pointer" />
           <IoCartOutline className="text-white text-2xl font-semibold cursor-pointer" />

@@ -2,15 +2,18 @@ import { create } from "zustand";
 import { userLogin } from "../utils/postApi";
 import { getCookie, setCookie, deleteCookie } from "../utils/cookie";
 import { toast } from "../components/ui/use-toast";
+import { getUser } from "../utils/getApi";
 
 const useAuthStore = create((set) => ({
-  user: JSON.parse(localStorage.getItem("user")) || null,
+  user: JSON.parse(sessionStorage.getItem("user")) || null,
 
   accessToken: getCookie("access-token") || null,
   refreshToken: getCookie("refresh-token") || null,
-  isLoggedIn: localStorage.getItem("isLoggedIn") === "true" || false,
 
-  setLogin: (value) => set({ isLoggedIn: value }),
+  setUser: (value) => {
+    set({ user: value });
+    sessionStorage.setItem("user", JSON.stringify(value));
+  },
 
   login: async (userDetails, navigate, location) => {
     try {
@@ -19,11 +22,10 @@ const useAuthStore = create((set) => ({
         set({ accessToken: response.data.data.accessToken });
         set({ refreshToken: response.data.data.refreshToken });
         set({ user: response.data.data.user });
-        set({ isLoggedIn: true });
+        set({ user: response.data.data.user });
         setCookie("access-token", response.data.data.accessToken);
         setCookie("refresh-token", response.data.data.refreshToken);
-        localStorage.setItem("isLoggedIn", true);
-        localStorage.setItem("user", JSON.stringify(response.data.data.user));
+        sessionStorage.setItem("user", JSON.stringify(response.data.data.user));
       }
       if (response.status === 200 && location.pathname === "/login") {
         toast({
@@ -46,11 +48,19 @@ const useAuthStore = create((set) => ({
     set({ accessToken: null });
     set({ refreshToken: null });
     set({ user: null });
-    set({ isLoggedIn: false });
     deleteCookie("access-token");
     deleteCookie("refresh-token");
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
+  },
+
+  fetchUser: async () => {
+    try {
+      await getUser().then((res) => {
+        set({ user: res.data.data });
+      });
+    } catch (error) {
+      set({ user: null });
+    }
   },
 }));
 
