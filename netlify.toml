@@ -1,0 +1,23 @@
+# Frontend (React) configuration
+[build]
+  command = "npm run build"
+  publish = "client/dist"
+
+# Backend (Express.js) configuration
+[build.server]
+  command = "npm install && npm run start"
+  publish = "server"
+
+
+[build.processing]
+  skip_processing = true
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
