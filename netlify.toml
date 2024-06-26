@@ -9,7 +9,14 @@
   publish = "server"
 
 [build.environment]
-  NODE_ENV = "production"
+  DB_URI = "mongodb+srv://b1shwas:falgun27@bookstore.cdeispi.mongodb.net/"
+  PORT = "5555"
+  CLOUDINARY_CLOUD_NAME = "b1shwas"
+  CLOUDINARY_API_KEY = "698213982725262"
+  CLOUDINARY_API_SECRET = "vhXREEtSNXpwrnFEbkdya18MRZ8"
+  SECRET_KEY = "8f6a6ee7749b21bfd65cd1d260b5e547e40e2f7ff8a11cff7f7894b66bc21e81"
+  ACCESS_TOKEN_EXPIRY = "1d"
+  REFRESH_TOKEN_EXPIRY = "7d"
 
 [build.processing]
   skip_processing = true
