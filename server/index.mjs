@@ -23,7 +23,11 @@ connectDatabase();
 //middlewares
 const app = express();
 const corsOptions = {
-  origin: ["http://localhost:5173", "https://lesread.netlify.app"],
+  origin: [
+    "http://localhost:5173",
+    "https://lesread.netlify.app",
+    "https://les-read-3q2q.vercel.app/",
+  ],
   credentials: true,
   optionSuccessStatus: 200,
   Headers: true,
