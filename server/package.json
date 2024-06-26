@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "node index.mjs",
-    "dev": "nodemon index.mjs"
+    "dev": "nodemon index.mjs",
+    "build": "node index.mjs"
   },
   "author": "Bishwas",
   "license": "ISC",

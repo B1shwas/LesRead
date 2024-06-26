@@ -1,7 +1,25 @@
+# Frontend (React) configuration
 [build]
-  command = "npm run build" # This is for the client (React)
-  publish = "client/build" # This is for the client (React)
+  command = "npm run build"
+  publish = "client/dist"
 
+# Backend (Express.js) configuration
 [build.server]
-  command = "npm install && npm run start" # This is for the server (Express.js)
-  publish = "server" # This is for the server (Express.js)
+  command = "npm install && npm run start"
+  publish = "server"
+
+[build.environment]
+  NODE_ENV = "production"
+
+[build.processing]
+  skip_processing = true
+
+[[redirect]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
