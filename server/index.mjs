@@ -26,7 +26,7 @@ const corsOptions = {
   origin: [
     "http://localhost:5173",
     "https://lesread.netlify.app",
-    "https://les-read-3q2q.vercel.app/",
+    "https://les-read-3q2q.vercel.app",
   ],
   credentials: true,
   optionSuccessStatus: 200,
