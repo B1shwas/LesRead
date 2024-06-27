@@ -94,10 +94,18 @@ const loginUser = AsyncHandler(async (req, res) => {
     path: "/",
   };
 
+  res.setHeader("Set-Cookie", [
+    `access-token=${accessToken}; Max-Age=${
+      1 * 24 * 60 * 60
+    }; Path=/; HttpOnly; Secure; SameSite=None`,
+    `refresh-token=${refreshToken}; Max-Age=${
+      15 * 24 * 60 * 60
+    }; Path=/; HttpOnly; Secure; SameSite=None`,
+  ]);
+
   return res
     .status(200)
-    .cookie("access-token", accessToken, options)
-    .cookie("refresh-token", refreshToken, options)
+
     .json(
       new ApiResponse(
         200,
