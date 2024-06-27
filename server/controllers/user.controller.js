@@ -97,10 +97,10 @@ const loginUser = AsyncHandler(async (req, res) => {
   res.setHeader("Set-Cookie", [
     `access-token=${accessToken}; Max-Age=${
       1 * 24 * 60 * 60
-    }; Path=/; HttpOnly; Secure; SameSite=None`,
+    }; Path=/; HttpOnly; Secure; SameSite=Lax`,
     `refresh-token=${refreshToken}; Max-Age=${
       15 * 24 * 60 * 60
-    }; Path=/; HttpOnly; Secure; SameSite=None`,
+    }; Path=/; HttpOnly; Secure; SameSite=Lax`,
   ]);
 
   return res
