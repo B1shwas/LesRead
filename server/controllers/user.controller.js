@@ -94,25 +94,10 @@ const loginUser = AsyncHandler(async (req, res) => {
     path: "/",
   };
 
-  // res.setHeader("Set-Cookie", [
-  //   `access-token=${accessToken}; Max-Age=${
-  //     1 * 24 * 60 * 60
-  //   }; Path=/; HttpOnly; Secure; SameSite=Lax; Partitioned`,
-  //   `refresh-token=${refreshToken}; Max-Age=${
-  //     15 * 24 * 60 * 60
-  //   }; Path=/; HttpOnly; Secure; SameSite=Lax; Partitioned`,
-  // ]);
-
-  res.setHeader(
-    "Set-Cookie",
-    `access-token=${accessToken}; Max-Age=${
-      1 * 24 * 60 * 60 * 1000
-    }; Path=/; HttpOnly; SameSite=None; Secure; Partitioned`
-  );
-
   return res
     .status(200)
-
+    .cookie("access-token", accessToken, options)
+    .cookie("refresh-token", refreshToken, options)
     .json(
       new ApiResponse(
         200,

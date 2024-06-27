@@ -5,12 +5,12 @@ export const getAllBooks = () => {
   return axios.get(`${domain}/api/books/lists`);
 };
 
-export const getHome = () => {
-  return axios.get(`${domain}/home`, { withCredentials: true });
-};
-
 export const getUser = () => {
   return axios.get(`${domain}/api/users/details`, {
     withCredentials: true,
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Credentials": "true",
+    },
   });
 };

@@ -30,11 +30,7 @@ const corsOptions = {
   ],
   credentials: true,
   methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
-  allowedHeaders: [
-    "Access-Control-Allow-Origin",
-    "Content-Type",
-    "Authorization",
-  ],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.use(cors(corsOptions));
@@ -42,7 +38,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use((req, res, next) => {
-  res.setHeader("Content-Type", "application/json");
+  res.setHeader(
+    "Content-Type",
+    "application/json",
+    "access-control-allow-credentials"
+  );
   next();
 });
 
