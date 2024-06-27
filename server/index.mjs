@@ -22,18 +22,24 @@ connectDatabase();
 
 //middlewares
 const app = express();
-const corsOptions = {
-  origin: [
-    "http://localhost:5173",
-    "https://lesread.netlify.app",
-    "https://les-read-3q2q.vercel.app",
-  ],
-  credentials: true,
-  methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://lesread.netlify.app",
+  "https://les-read-3q2q.vercel.app",
+];
 
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    credentials: true,
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin) || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
